@@ -584,7 +584,7 @@ public class RoqFrontMatterScanProcessor {
             return markup != null ? markup.name() : "html";
         }
         return null;
-    }    
+    }
 
     private static void scanResourceSiteAttachments(boolean isAttachmentRoot,
             boolean isStaticDir,
