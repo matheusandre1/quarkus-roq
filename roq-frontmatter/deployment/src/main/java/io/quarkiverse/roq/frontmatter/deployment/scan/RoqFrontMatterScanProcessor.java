@@ -163,7 +163,7 @@ public class RoqFrontMatterScanProcessor {
 
             for (RoqFrontMatterRawTemplateBuildItem item : items) {
                 if (item.type().isThemeLayout()) {
-                    // Check and apply theme layout overrides if none exist for this item to specify that this check only occurs if there’s no pre-existing override.
+                    // Check and apply theme layout if no override exist for this layout
                     String layoutId = removeThemePrefix(item.id());
                     if (!ids.contains(layoutId)) {
                         produceRawTemplate(dataProducer, new RoqFrontMatterRawTemplateBuildItem(
@@ -544,7 +544,7 @@ public class RoqFrontMatterScanProcessor {
 
             TemplateSource source = TemplateSource.create(
                     id,
-                    markup != null ? markup.name() : null,
+                    getMarkup(isHtml, markup),
                     sourceFile,
                     referencePath,
                     templateOutputPath,
@@ -578,6 +578,13 @@ public class RoqFrontMatterScanProcessor {
 
         };
     }
+
+    private static String getMarkup(boolean isHtml, RoqFrontMatterQuteMarkupBuildItem markup) {
+        if (isHtml) {
+            return markup != null ? markup.name() : "html";
+        }
+        return null;
+    }    
 
     private static void scanResourceSiteAttachments(boolean isAttachmentRoot,
             boolean isStaticDir,
